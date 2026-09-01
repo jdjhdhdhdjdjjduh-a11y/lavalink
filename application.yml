@@ -7,6 +7,16 @@ plugins:
   # هذا البلقن المخصص أدق وأثبت بكثير (نفس فلسفة yt-dlp اللي استخدمناها بالنسخة السابقة)
   youtube:
     enabled: true
+    allowSearch: true
+    allowDirectVideoIds: true
+    allowDirectPlaylistIds: true
+    clients:
+      - MUSIC
+      - ANDROID_VR
+      - TVHTML5EMBEDDED
+      - WEB
+    oauth:
+      enabled: true
 
 lavalink:
   plugins:
@@ -55,6 +65,7 @@ lavalink:
 
 lavasrc:
   providers:
+    - "spsearch:%QUERY%"
     - "dzisrc:%ISRC%"
     - "dzsearch:%QUERY%"
   sources:
