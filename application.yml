@@ -13,7 +13,7 @@ lavalink:
     - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.2"
       repository: "https://maven.lavalink.dev/releases"
     # سبوتيفاي + ديزر (LavaSrc): يحول روابط سبوتيفاي/ديزر لمطابقة صوتية عبر يوتيوب
-    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.6.1"
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.7.0"
       repository: "https://maven.lavalink.dev/releases"
 
   server:
