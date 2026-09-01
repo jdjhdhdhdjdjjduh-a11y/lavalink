@@ -1,0 +1,81 @@
+server:
+  port: 2333
+  address: 0.0.0.0
+
+plugins:
+  # مصدر يوتيوب المدمج بلافا لينك صار غير مستقر بسبب تحديثات يوتيوب المستمرة
+  # هذا البلقن المخصص أدق وأثبت بكثير (نفس فلسفة yt-dlp اللي استخدمناها بالنسخة السابقة)
+  youtube:
+    enabled: true
+
+lavalink:
+  plugins:
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.18.2"
+      repository: "https://maven.lavalink.dev/releases"
+    # سبوتيفاي + ديزر (LavaSrc): يحول روابط سبوتيفاي/ديزر لمطابقة صوتية عبر يوتيوب
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.6.1"
+      repository: "https://maven.lavalink.dev/releases"
+
+  server:
+    # !!! غيّر هذا الباسورد وحطه بمتغير LAVALINK_PASSWORD ببوتك !!!
+    password: "${LAVALINK_PASSWORD}"
+
+    sources:
+      youtube: false # البلقن يتكفل فيه بدل المصدر المدمج
+      soundcloud: true
+      bandcamp: true
+      twitch: true
+      vimeo: true
+      http: true
+      local: false
+
+    filters:
+      volume: true
+      equalizer: true
+      karaoke: true
+      timescale: true
+      tremolo: true
+      vibrato: true
+      distortion: true
+      rotation: true
+      channelMix: true
+      lowPass: true
+
+    # ---- إعدادات الجودة والاستقرار: أقصى شي ممكن ----
+    bufferDurationMs: 400
+    frameBufferDurationMs: 5000 # حاجز أكبر = مقاومة أعلى لأي تذبذب بالشبكة (يقلل التقطيع)
+    opusEncodingQuality: 10 # أقصى جودة ترميز Opus (المقياس من 0 إلى 10)
+    resamplingQuality: HIGH # أعلى جودة إعادة معايرة الصوت
+    trackStuckThresholdMs: 10000
+    useSeekGhosting: true
+    youtubePlaylistLoadLimit: 6
+    playerUpdateInterval: 5
+    youtubeSearchEnabled: true
+    soundcloudSearchEnabled: true
+
+lavasrc:
+  providers:
+    - "dzisrc:%ISRC%"
+    - "dzsearch:%QUERY%"
+  sources:
+    spotify: true
+    deezer: true
+  spotify:
+    # سبوتيفاي يحتاج بيانات تطبيق مجاني من https://developer.spotify.com/dashboard
+    clientId: "${SPOTIFY_CLIENT_ID}"
+    clientSecret: "${SPOTIFY_CLIENT_SECRET}"
+  deezer:
+    masterDecryptionKey: "${DEEZER_MASTER_KEY}"
+
+metrics:
+  prometheus:
+    enabled: false
+
+logging:
+  level:
+    root: INFO
+    lavalink: INFO
+  logback:
+    rollingpolicy:
+      max-file-size: 200MB
+      max-history: 5
